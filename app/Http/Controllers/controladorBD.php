@@ -59,7 +59,7 @@ class controladorBD extends Controller
      */
     public function create()
     {
-        //
+        return view('consulta');
     }
 
     /**
@@ -70,7 +70,16 @@ class controladorBD extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::table('tb_autores')->insert([
+            "Nombre"=> $request->input('txtNom'),
+            "fecha"=> Carbon::now(),
+            "libros"=> $request->input('txtpubli'),
+            "created_at"=> Carbon::now(),
+            "updated_at"=> Carbon::now()
+
+
+        ]);
+        return redirect('autor/create')->with('confirmacion','abc');
     }
 
     /**

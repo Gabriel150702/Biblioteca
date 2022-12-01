@@ -33,7 +33,7 @@
 
       @endif
   <div class="card-body ">
-  <form class="m-4" method="post" action="Guardarlibro">
+  <form class="m-4" method="post" action="{{route('autor.store')}}">">
         @csrf 
          
         <div class="row mb-3">

@@ -33,6 +33,12 @@ Route::get('editarLibro/{id}/editLi', [controladorBD::class,'editLi'])->name('ed
 
 Route::get('eliminarAutor/{id}/show', [controladorBD::class,'show'])->name('eliminarAutor.show');
 Route::get('eliminarLibro/{id}/eliminarLib', [controladorBD::class,'eliminarLib'])->name('eliminarLibro.eliminarLib');
+
+
+
+Route::get('autor/create', [controladorBD::class,'create'])->name('autor.create');
+
+Route::post('autor', [controladorBD::class,'store'])->name('autor.store');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

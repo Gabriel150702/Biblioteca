@@ -1,7 +1,19 @@
 @extends('Plantilla')
 
 @section('contenido')
+@include('modalActualizarAutor')
 
+
+
+@if (session()->has('Confirmacion'))
+      <?php $titu = session()->get('txtTitulo')?>
+
+         <div class="alert alert-warning" role="alert">
+              Se guardo correctamente
+           </div>
+
+    @endif 
+    
 @if (session()->has('Actualizar'))
         {!! "<script>Swal.fire(
             'Correcto!',
