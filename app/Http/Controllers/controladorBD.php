@@ -62,6 +62,11 @@ class controladorBD extends Controller
         return view('consulta');
     }
 
+
+    public function createLib()
+    {
+        return view('consultaLibro');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -81,6 +86,24 @@ class controladorBD extends Controller
         ]);
         return redirect('autor/create')->with('confirmacion','abc');
     }
+
+
+    public function storeLibro(Request $request)
+    {
+        DB::table('tb_autores')->insert([
+            "isbn"=> $request->input('txtISBN'),
+            "titulo"=> $request->input('txtTitulo'),
+            "paginas"=> $request->input('txtPaginas'),
+            "editorial"=> $request->input('txtEditorial'),
+            "correo"=> $request->input('txtCorreo'),
+            "created_at"=> Carbon::now(),
+            "updated_at"=> Carbon::now()
+
+
+        ]);
+        return redirect('libro/create')->with('confirmacion','abc');
+    }
+
 
     /**
      * Display the specified resource.

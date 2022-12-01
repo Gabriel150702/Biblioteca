@@ -39,6 +39,11 @@ Route::get('eliminarLibro/{id}/eliminarLib', [controladorBD::class,'eliminarLib'
 Route::get('autor/create', [controladorBD::class,'create'])->name('autor.create');
 
 Route::post('autor', [controladorBD::class,'store'])->name('autor.store');
+
+
+Route::get('libro/create', [controladorBD::class,'createLib'])->name('libro.create');
+
+Route::post('libro', [controladorBD::class,'storeLibro'])->name('libro.storeLibro');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
