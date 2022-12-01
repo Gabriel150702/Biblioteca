@@ -2,25 +2,12 @@
 
 @section('contenido')
 
- @if (session()->has('Confirmacion'))
-      <?php $titu = session()->get('txtTitulo')?>
-
-        {!! "<script>Swal.fire(
-            'Guardado el libro {$titu}',
-            '',
-            'OK'
-      )     </script>"!!}
-
-    @endif 
-
-
-<body>
     
 
-<div class="container card text-center">
-  <div class="card-header">
-  </div>
-  @if ($errors->any())
+<div class="container mt-4 col-md-8">
+
+      <h1 class="display-4 text-center mb-4">Actualizar Libro</h1>
+       @if ($errors->any())
          
          @foreach ($errors->all() as $error)
 
@@ -32,11 +19,21 @@
          @endforeach
 
       @endif
-  <div class="card-body ">
-  <form class="m-4" method="post" action="Guardarlibro">
-        @csrf 
+
+      <div class="card text-center mb-4">
+
+        <div class="card-header">
+          Actualizar Autor
+        </div>
+
+  <div class="card-body">
+    <form class="m-4" method="post" action="">
+        @csrf
+      <!-- @method('PUT') -->
+
+         {!!method_field('PUT')!!}
          
-        <div class="row mb-3">
+         <div class="row mb-3">
             <label  class="col-sm-2 col-form-label fw-bold ">ISBN</label>
            <div class="col-sm-10">
                   <input type="text" class="form-control" name="txtISBN" value="{{old('txtISBN')}}" >
@@ -95,18 +92,21 @@
         </div>
 
  
-  
     
     </div>
 
              <div class="card-footer ">
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary">Actualizar</button>
   </form>
     
-  </div>
+              </div>
   
+      </div>
 </div>
+
+
     
-</body>
-</html>
-@stop
+  
+
+ @stop
+ 
