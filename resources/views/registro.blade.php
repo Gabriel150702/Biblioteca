@@ -6,7 +6,7 @@
       <?php $titu = session()->get('txtTitulo')?>
 
         {!! "<script>Swal.fire(
-            'Guardado el libro {$titu}',
+            'Guardado correctamente {$titu}',
             '',
             'OK'
       )     </script>"!!}
@@ -33,7 +33,7 @@
 
       @endif
   <div class="card-body ">
-  <form class="m-4" method="post" action="{{route('libro.storeLibro')}}">">
+  <form class="m-4" method="post" action="{{route('libro.storeLibro')}}">
         @csrf 
          
         <div class="row mb-3">
@@ -47,22 +47,24 @@
         </div>
   
            <div class="row mb-3">
-             <label  class="col-sm-2 col-form-label fw-bold">Titulo</label>
+             
+           
+           <label  class="col-sm-2 col-form-label fw-bold">Titulo</label>
              <div class="col-sm-10">
                    <input type="text" class="form-control" name="txtTitulo" value="{{old('txtTitulo')}}">
                    {{ $errors->first('txtTitulo') }}
                </div>
              </div>
+                <div class="form-floating mb-3">
+                <select class="form-select" aria-label="Default select example" name="txtAutor" >
+                    <option selected disabled="disabled">Seleccione un autor...</option>
+                    @foreach($consultaAutor as $consulta)
+                        <option value="{{$consulta->idAutor}}">{{$consulta->Nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
 
-             <div class="row mb-3">
-            <label  class="col-sm-2 col-form-label fw-bold ">Autor</label>
-           <div class="col-sm-10">
-                  <input type="text" class="form-control" name="txtAutor" value="{{old('txtAutor')}}" >
-                  <p class="fst-Italic">
-                  {{ $errors->first('txtAutor') }}
-                  </p>
-            </div> 
-        </div>
+             
 
         <div class="row mb-3">
             <label  class="col-sm-2 col-form-label fw-bold ">Paginas</label>

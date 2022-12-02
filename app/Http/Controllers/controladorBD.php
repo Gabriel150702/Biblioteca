@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\validadorAutor;
 use App\Http\Requests\validadorVistas;
+use App\Http\Requests\validadorLibro;
 use DB;
 use Carbon\Carbon;
 
@@ -18,15 +19,9 @@ class controladorBD extends Controller
      */
     public function index()
     {
-        return view('consulta');
-    }
-
-
-
-
-    public function consultaL()
-    {
-        return view('consultaLibro');
+        $ConsultaRec= DB::table('tb_autores')->get();
+        
+        return view('consulta',compact('ConsultaRec'));
     }
 
 
@@ -59,20 +54,11 @@ class controladorBD extends Controller
      */
     public function create()
     {
-        return view('consulta');
+        $consultaAutor=DB::select('SELECT idAutor,Nombre FROM tb_autores');
+
+        return view('consulta')->with('Eliminar','abc');;
     }
 
-
-    public function createLib()
-    {
-        return view('consultaLibro');
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         DB::table('tb_autores')->insert([
@@ -82,16 +68,27 @@ class controladorBD extends Controller
             "created_at"=> Carbon::now(),
             "updated_at"=> Carbon::now()
 
-
         ]);
-        return redirect('autor/create')->with('confirmacion','abc');
+        return redirect('consulta')->with('Confirmacion','abc');
     }
 
 
-    public function storeLibro(Request $request)
+
+    /*  DESPLIEGA LA VISTA DE CREAR LIBRO */
+    public function createLib()
     {
-        DB::table('tb_autores')->insert([
+
+        $consultaAutor=DB::select('SELECT idAutor,Nombre FROM tb_autores');
+        return view('registro', compact('consultaAutor'));
+    }
+    
+
+    /* GUARDAR LIBRO EN LA BASE DE DATOS */
+    public function storeLibro(validadorLibro $request)
+    {
+        DB::table('tb_libros')->insert([
             "isbn"=> $request->input('txtISBN'),
+            "idautor"=> $request->input('txtAutor'),
             "titulo"=> $request->input('txtTitulo'),
             "paginas"=> $request->input('txtPaginas'),
             "editorial"=> $request->input('txtEditorial'),
@@ -101,36 +98,44 @@ class controladorBD extends Controller
 
 
         ]);
-        return redirect('libro/create')->with('confirmacion','abc');
+        return redirect('libro/consultar')->with('Confirmacion','abc');
+    }
+
+    /* VISTA DE CONSULTAR LIBRO */
+
+    public function consultaL()
+    {
+        $ConsultaLibros = DB::table('tb_libros')->get();
+        
+      
+        return view('consultaLibro', compact('ConsultaLibros'));
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function showregistroAutor()
+    {
    
+        return view('registroAutores');
+    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+
+
     public function update(Request $request, $id)
     {
-        //
+        DB::table('tb_autores')->where('idAutor',$id)->update([
+            "Nombre"=> $request->input('txtNom'),
+            "fecha"=> $request->input('txtFecha'),
+            "libros"=> $request->input('txtpubli'),
+            
+            "updated_at"=> Carbon::now()
+
+
+        ]);
+
+        return redirect('consulta')->with('Actualizar','abc');
     }
 
     /**
@@ -141,6 +146,29 @@ class controladorBD extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('tb_autores')->where('idAutor',$id)->delete();
+
+        return redirect('consulta')->with('Eliminar','abc');
     }
+
+
+
+
+
+    public function showLib($id)
+    {
+        $consultaAutor=DB::select('SELECT idAutor,Nombre FROM tb_autores');
+
+        return view("registro",compact('consultaAutor'));
+    }
+
+
+
+   
+
+
+
 }
+
+
+

@@ -20,10 +20,10 @@
       <div class="navbar-nav">
         
         <a class="nav-link" href="principal">Principal</a>
-        <a class="nav-link" href="registro">Registrar Libro</a>
-        <a class="nav-link" href="registroAutores">Registrar Autores</a>
-        <a class="nav-link" href="consulta">Consultar Autor</a>
-        <a class="nav-link" href="consultaLib">Consultar Libro</a>
+        <a class="nav-link" href="{{route('libro.create')}}">Registrar Libro</a>
+        <a class="nav-link" href="{{route('apodoregistroAu')}}">Registrar Autores</a>
+        <a class="nav-link" href="{{route('consulta.index')}}">Consultar Autor</a>
+        <a class="nav-link" href="{{route('libro.consultar')}}">Consultar Libro</a>
 
       
 
